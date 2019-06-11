@@ -28,5 +28,8 @@
     "require": {},
     "config": {
         "preferred-install": "dist"
+    },
+    "require-dev": {
+        "illuminate/support": "^5.8"
     }
 }

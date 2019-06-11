@@ -40,14 +40,11 @@ class HashidsServiceProvider extends ServiceProvider
         $source = realpath(__DIR__.'/config/hashids.php');
 
         if ($this->app instanceof LaravelApplication && $this->app->runningInConsole()) {
-            $this->publishes([$source => config_path('hashids.php')]);
+            $this->publishes([$source => config_path('hashids.php')], 'config');
         } elseif ($this->app instanceof LumenApplication) {
             $this->app->configure('hashids');
         }
 
-        $this->publishes([
-            $source => config_path('hashids.php'),
-        ], 'config');
         $this->mergeConfigFrom($source, 'hashids');
     }
 
@@ -58,8 +55,7 @@ class HashidsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-        $loader->alias('Hashids', \Amamarul\Hashids\Support\Facades\Hashids::class);
+        $this->app->alias('Hashids', \Amamarul\Hashids\Support\Facades\Hashids::class);
     }
 
     /**
